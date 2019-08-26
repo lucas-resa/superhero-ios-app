@@ -13,7 +13,7 @@ struct Hero: Codable {
     let image: HeroImage
     let name: String
     let appearance: HeroAppearance
-    let powerstats: [String: String]
+    let powerstats: HeroPowerstats
     let biography: HeroBiography
     
 }

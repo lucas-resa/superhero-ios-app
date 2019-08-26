@@ -14,6 +14,9 @@
 		E88A476B230C6203007400EC /* ResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88A476A230C6203007400EC /* ResultsTableViewController.swift */; };
 		E88A476D230C62DF007400EC /* ResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88A476C230C62DF007400EC /* ResultsTableViewCell.swift */; };
 		E88A476F230C7E7B007400EC /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88A476E230C7E7B007400EC /* ImageManager.swift */; };
+		E8B11FEC231420DB00D81617 /* SearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B11FEB231420DB00D81617 /* SearchError.swift */; };
+		E8B11FEE2314414000D81617 /* HeroPowerstats.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B11FED2314414000D81617 /* HeroPowerstats.swift */; };
+		E8B11FF0231442DC00D81617 /* LabelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B11FEF231442DC00D81617 /* LabelManager.swift */; };
 		E8F754EE23072B0500C3D631 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F754ED23072B0500C3D631 /* AppDelegate.swift */; };
 		E8F754F023072B0500C3D631 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F754EF23072B0500C3D631 /* SearchViewController.swift */; };
 		E8F754F323072B0500C3D631 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8F754F123072B0500C3D631 /* Main.storyboard */; };
@@ -46,6 +49,9 @@
 		E88A476A230C6203007400EC /* ResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableViewController.swift; sourceTree = "<group>"; };
 		E88A476C230C62DF007400EC /* ResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableViewCell.swift; sourceTree = "<group>"; };
 		E88A476E230C7E7B007400EC /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		E8B11FEB231420DB00D81617 /* SearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchError.swift; sourceTree = "<group>"; };
+		E8B11FED2314414000D81617 /* HeroPowerstats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroPowerstats.swift; sourceTree = "<group>"; };
+		E8B11FEF231442DC00D81617 /* LabelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelManager.swift; sourceTree = "<group>"; };
 		E8F754EA23072B0500C3D631 /* superheroApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = superheroApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8F754ED23072B0500C3D631 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E8F754EF23072B0500C3D631 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				E88A476E230C7E7B007400EC /* ImageManager.swift */,
+				E8B11FEF231442DC00D81617 /* LabelManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -179,6 +186,8 @@
 				E8F75516230740D500C3D631 /* HeroImage.swift */,
 				E8F755182307412700C3D631 /* HeroResults.swift */,
 				E856BD19230F16E6007632F7 /* HeroBiography.swift */,
+				E8B11FEB231420DB00D81617 /* SearchError.swift */,
+				E8B11FED2314414000D81617 /* HeroPowerstats.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -293,9 +302,12 @@
 				E856BD16230EF8D3007632F7 /* PowerstatsViewController.swift in Sources */,
 				E88A476D230C62DF007400EC /* ResultsTableViewCell.swift in Sources */,
 				E8F755192307412700C3D631 /* HeroResults.swift in Sources */,
+				E8B11FEE2314414000D81617 /* HeroPowerstats.swift in Sources */,
 				E8F754EE23072B0500C3D631 /* AppDelegate.swift in Sources */,
 				E88A476B230C6203007400EC /* ResultsTableViewController.swift in Sources */,
+				E8B11FF0231442DC00D81617 /* LabelManager.swift in Sources */,
 				E8F7551523073E4E00C3D631 /* HeroAppearance.swift in Sources */,
+				E8B11FEC231420DB00D81617 /* SearchError.swift in Sources */,
 				E856BD0E230DBB35007632F7 /* DescriptionViewController.swift in Sources */,
 				E88A476F230C7E7B007400EC /* ImageManager.swift in Sources */,
 				E8F75517230740D500C3D631 /* HeroImage.swift in Sources */,

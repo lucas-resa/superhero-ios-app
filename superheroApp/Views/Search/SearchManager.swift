@@ -23,27 +23,30 @@ class SearchManager {
         
         let searchTextParsed = searchText.replacingOccurrences(of: " ", with: "_")
         
-        let url = URL(string: self.urlBase + searchTextParsed)
+        guard let url = URL(string: self.urlBase + searchTextParsed) else {
+            self.delegate?.responseError(message: "The text you entered is in a incorrect format")
+            return
+        }
         
-//        urlRequest = URLRequest(url: url!)
-//
-//        urlRequest?.httpMethod = "GET"
-//
-        session.dataTask(with: url!) { data, response, error in
+        session.dataTask(with: url) { data, response, error in
             
             if let error = error {
                 print("Error: \(error.localizedDescription)")
-                self.delegate?.responseError()
+                self.delegate?.responseError(message: error.localizedDescription)
                 return
             }
             
             guard let unwrappedData = data else {
-                self.delegate?.responseError()
+                self.delegate?.responseError(message: "No results were found, please try with another word")
                 return
             }
             
             guard let results = try? JSONDecoder().decode(HeroResults.self, from: unwrappedData) else {
-                self.delegate?.responseError()
+                
+                if let error = try? JSONDecoder().decode(SearchError.self, from: unwrappedData) {
+                    self.delegate?.responseError(message: error.error)
+                }
+                
                 return
             }
             
@@ -51,10 +54,6 @@ class SearchManager {
             
         }.resume()
         
-    }
-    
-    deinit {
-        print("Deinitilized search manager")
     }
     
 }
