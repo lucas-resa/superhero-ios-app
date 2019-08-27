@@ -15,7 +15,9 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate {
     var heroes = [Hero]()
     var filteredHeroes: [Hero]?
     var headerText: String?
-
+    
+    var searchBar: UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,6 +27,9 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate {
         backgroundImage.addBlurEffectToImage()
         
         tableView.backgroundView = backgroundImage
+        
+        // Seteo el header a la tabla entera, aca puedo poner cualquier vista que quiera por codigo
+        // tableView.tableHeaderView = self.buildTableHeaderView()
         
         filteredHeroes = heroes
         
@@ -39,9 +44,19 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return filteredHeroes!.count
+        return filteredHeroes?.count ?? 0
     }
 
+    // Con esto seteo un header para cada seccion de la tabla y me aseguro de que quede fijo en la parte superior mientras esa seccion sea la principal que se este mostrando
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        searchBar = self.buildTableSectionHeaderView()
+        return searchBar
+    }
+    
+    // En esta funcion puedo definir el tamaño del header de cada seccion
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifer = "ResultsTableViewCell"
@@ -78,6 +93,20 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate {
         
     }
     
+    // MARK: - UIScrollViewDelegate
+    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+
+        changeVisibleStateFromSearchBar(hide: true)
+
+    }
+    
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        changeVisibleStateFromSearchBar(hide: false)
+        
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -102,4 +131,30 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate {
         
     }
 
+    // MARK: - Private Methods
+    private func buildTableSectionHeaderView() -> UIView? {
+        let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
+        
+        searchBar.delegate = self
+        
+        return searchBar
+    }
+    
+    private func changeVisibleStateFromSearchBar(hide: Bool) {
+        
+        guard let searchBar = searchBar else { return }
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
+            searchBar.alpha = hide ? 0 : 1.0
+        })
+        
+//        UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseOut, animations: {
+//            searchBar.frame = CGRect(x: 0, y: searchBar.frame.minY + 44 , width: searchBar.frame.width, height: searchBar.frame.height)
+//            //searchBar.alpha = hide ? 0 : 1.0
+//        })
+        
+        
+        
+    }
+    
 }
