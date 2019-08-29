@@ -35,8 +35,7 @@ class DescriptionViewController: UIViewController {
             self.title = hero.name
             childVC.heroPowerStats = hero.powerstats
             childVC.publisher = hero.biography.publisher
-            childVC.view.setNeedsDisplay()
-            childVC.heroImage.download(from: hero.image.url)
+            childVC.urlImage = hero.image.url
         case "showBiographySegue":
             guard let navigation = segue.destination as? UINavigationController, let hero = hero else {
                 fatalError("Unexpected destination: \(segue.destination)")

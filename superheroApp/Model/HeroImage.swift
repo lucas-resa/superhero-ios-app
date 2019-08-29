@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct HeroImage: Codable {
+struct HeroImage: Decodable {
     
     let url: String
     

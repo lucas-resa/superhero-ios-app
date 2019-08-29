@@ -7,12 +7,12 @@
 //
 
 import UIKit
+import Alamofire
 
 class SearchManager {
     
     // MARK: Properties
     let urlBase = "https://www.superheroapi.com/api.php/10216061652686950/search/"
-    let session = URLSession.shared
     
     weak var delegate: SearchManagerDelegate?
     var urlRequest: URLRequest?
@@ -28,31 +28,61 @@ class SearchManager {
             return
         }
         
-        session.dataTask(with: url) { data, response, error in
+        AF.request(url, method: .get).responseJSON { ( response ) in
             
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-                self.delegate?.responseError(message: error.localizedDescription)
+            guard response.error == nil else {
+                self.delegate?.responseError(message: response.error!.localizedDescription)
                 return
             }
             
-            guard let unwrappedData = data else {
+            guard let responseData = response.data else {
                 self.delegate?.responseError(message: "No results were found, please try with another word")
                 return
             }
             
-            guard let results = try? JSONDecoder().decode(HeroResults.self, from: unwrappedData) else {
+            guard let results = try? JSONDecoder().decode(HeroResults.self, from: responseData) else {
                 
-                if let error = try? JSONDecoder().decode(SearchError.self, from: unwrappedData) {
+                if let error = try? JSONDecoder().decode(SearchError.self, from: responseData) {
                     self.delegate?.responseError(message: error.error)
+                } else {
+                    self.delegate?.responseError(message: "Error: Data cannot be parsed correctly")
                 }
+                
                 
                 return
             }
             
             self.delegate?.loadValidResponse(results: results)
             
-        }.resume()
+        }
+        
+        
+        
+//        session.dataTask(with: url) { data, response, error in
+//
+//            if let error = error {
+//                print("Error: \(error.localizedDescription)")
+//                self.delegate?.responseError(message: error.localizedDescription)
+//                return
+//            }
+//
+//            guard let unwrappedData = data else {
+//                self.delegate?.responseError(message: "No results were found, please try with another word")
+//                return
+//            }
+//
+//            guard let results = try? JSONDecoder().decode(HeroResults.self, from: unwrappedData) else {
+//
+//                if let error = try? JSONDecoder().decode(SearchError.self, from: unwrappedData) {
+//                    self.delegate?.responseError(message: error.error)
+//                }
+//
+//                return
+//            }
+//
+//            self.delegate?.loadValidResponse(results: results)
+//
+//        }.resume()
         
     }
     

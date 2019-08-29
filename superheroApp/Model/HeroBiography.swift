@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct HeroBiography: Codable {
+struct HeroBiography: Decodable {
     
     let fullName: String
     let alterEgos: String

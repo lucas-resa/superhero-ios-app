@@ -13,20 +13,25 @@ class PowerstatsViewController: UIViewController {
     // MARK: - Properties
     
     @IBOutlet weak var heroImage: UIImageView!
-    @IBOutlet weak var intelligence: UILabel!
-    @IBOutlet weak var strength: UILabel!
-    @IBOutlet weak var speed: UILabel!
-    @IBOutlet weak var durability: UILabel!
-    @IBOutlet weak var power: UILabel!
-    @IBOutlet weak var combat: UILabel!
+    @IBOutlet weak var intelligence: HeroAppLabel!
+    @IBOutlet weak var strength: HeroAppLabel!
+    @IBOutlet weak var speed: HeroAppLabel!
+    @IBOutlet weak var durability: HeroAppLabel!
+    @IBOutlet weak var power: HeroAppLabel!
+    @IBOutlet weak var combat: HeroAppLabel!
     @IBOutlet weak var backgroundImage: UIImageView!
     
-    var heroPowerStats: HeroPowerstats?
+    var heroPowerStats: Powerstats?
     var publisher: String?
+    var urlImage: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if let url = urlImage {
+            heroImage.download(from: url)
+        }
+        
         setPowerStatsLabels()
         setLabelText()
         loadBackgroundImage()
@@ -41,12 +46,12 @@ class PowerstatsViewController: UIViewController {
         
         if let powerstats = heroPowerStats {
     
-            intelligence.setLabelColour(statNumber: Int(powerstats.intelligence) ?? 0)
-            strength.setLabelColour(statNumber: Int(powerstats.strength) ?? 0)
-            speed.setLabelColour(statNumber: Int(powerstats.speed) ?? 0)
-            durability.setLabelColour(statNumber: Int(powerstats.durability) ?? 0)
-            power.setLabelColour(statNumber: Int(powerstats.power) ?? 0)
-            combat.setLabelColour(statNumber: Int(powerstats.combat) ?? 0)
+            intelligence.setLabelColour(statNumber: powerstats.intelligence)
+            strength.setLabelColour(statNumber: powerstats.strength)
+            speed.setLabelColour(statNumber: powerstats.speed)
+            durability.setLabelColour(statNumber: powerstats.durability)
+            power.setLabelColour(statNumber: powerstats.power)
+            combat.setLabelColour(statNumber: powerstats.combat)
     
         }
         

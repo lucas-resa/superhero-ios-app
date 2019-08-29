@@ -17,6 +17,7 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate {
     var headerText: String?
     
     var searchBar: UIView?
+    var oldContentOffset: CGPoint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,16 +96,18 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: - UIScrollViewDelegate
     
+    // El Scroll todavia no se movio
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-
-        changeVisibleStateFromSearchBar(hide: true)
-
+        
+        changeVisibilityFromSearchBar(hide: true)
+        
     }
-    
+
+    // El usuario saco el dedo de la pantalla
     override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
-        changeVisibleStateFromSearchBar(hide: false)
-        
+
+        changeVisibilityFromSearchBar(hide: false)
+
     }
     
     // MARK: - Navigation
@@ -140,20 +143,13 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate {
         return searchBar
     }
     
-    private func changeVisibleStateFromSearchBar(hide: Bool) {
+    private func changeVisibilityFromSearchBar(hide: Bool) {
         
         guard let searchBar = searchBar else { return }
-        
+
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
             searchBar.alpha = hide ? 0 : 1.0
         })
-        
-//        UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseOut, animations: {
-//            searchBar.frame = CGRect(x: 0, y: searchBar.frame.minY + 44 , width: searchBar.frame.width, height: searchBar.frame.height)
-//            //searchBar.alpha = hide ? 0 : 1.0
-//        })
-        
-        
         
     }
     

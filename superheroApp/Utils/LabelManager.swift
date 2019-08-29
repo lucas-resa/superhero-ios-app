@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension UILabel {
+class HeroAppLabel: UILabel {
     
-    func setLabelColour(statNumber: Int) {
+   open func setLabelColour(statNumber: Int) {
         switch statNumber {
         case 0..<25:
             self.backgroundColor = UIColor(hue: 0.0389, saturation: 1, brightness: 0.82, alpha: 1.0)

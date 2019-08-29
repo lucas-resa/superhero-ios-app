@@ -8,10 +8,10 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, SearchManagerDelegate {
+class SearchViewController: UIViewController, SearchManagerDelegate, MessagePresenter {
     
     // MARK: Properties
-    let searchManager = SearchManager()
+    private let searchManager = SearchManager()
     
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var activity: UIActivityIndicatorView!
@@ -55,16 +55,9 @@ class SearchViewController: UIViewController, SearchManagerDelegate {
     }
 
     func responseError(message: String) {
-        let alertController = UIAlertController(title: "Search Error", message:
-            message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "close", style: .default))
-        DispatchQueue.main.async {
-            self.activity.stopAnimating()
-            self.present(alertController, animated: true, completion: nil)
-        }
+        showErrorMessage(title: "Search Error", message: message)
+        self.activity.stopAnimating()
     }
-    
-    
 
 }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct HeroAppearance: Codable {
+struct HeroAppearance: Decodable {
     
     let gender: String
     let race: String
