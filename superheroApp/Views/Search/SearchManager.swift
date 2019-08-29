@@ -56,34 +56,6 @@ class SearchManager {
             
         }
         
-        
-        
-//        session.dataTask(with: url) { data, response, error in
-//
-//            if let error = error {
-//                print("Error: \(error.localizedDescription)")
-//                self.delegate?.responseError(message: error.localizedDescription)
-//                return
-//            }
-//
-//            guard let unwrappedData = data else {
-//                self.delegate?.responseError(message: "No results were found, please try with another word")
-//                return
-//            }
-//
-//            guard let results = try? JSONDecoder().decode(HeroResults.self, from: unwrappedData) else {
-//
-//                if let error = try? JSONDecoder().decode(SearchError.self, from: unwrappedData) {
-//                    self.delegate?.responseError(message: error.error)
-//                }
-//
-//                return
-//            }
-//
-//            self.delegate?.loadValidResponse(results: results)
-//
-//        }.resume()
-        
     }
     
 }
