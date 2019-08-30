@@ -7,7 +7,7 @@ target 'superheroApp' do
 
   # Pods for superheroApp
 
-  pod 'Alamofire', '5.0.0-beta.7'
+  pod 'Alamofire', '4.8.2'
 
   target 'superheroAppTests' do
     inherit! :search_paths

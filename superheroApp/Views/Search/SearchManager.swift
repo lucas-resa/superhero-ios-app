@@ -28,7 +28,7 @@ class SearchManager {
             return
         }
         
-        AF.request(url, method: .get).responseJSON { ( response ) in
+        Alamofire.request(url, method: .get).responseJSON { ( response ) in
             
             guard response.error == nil else {
                 self.delegate?.responseError(message: response.error!.localizedDescription)
