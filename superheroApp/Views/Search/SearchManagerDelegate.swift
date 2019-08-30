@@ -3,6 +3,6 @@ import UIKit
 protocol SearchManagerDelegate: class {
     
     func loadValidResponse(results: HeroResults)
-    func responseError()
+    func responseError(message: String)
     
 }

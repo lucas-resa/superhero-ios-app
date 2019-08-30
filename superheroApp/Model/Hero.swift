@@ -8,12 +8,12 @@
 
 import UIKit
 
-struct Hero: Codable {
+struct Hero: Decodable {
     
     let image: HeroImage
     let name: String
     let appearance: HeroAppearance
-    let powerstats: [String: String]
+    let powerstats: Powerstats
     let biography: HeroBiography
     
 }

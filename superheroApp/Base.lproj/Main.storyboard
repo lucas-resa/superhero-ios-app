@@ -21,8 +21,8 @@
                             <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="deadpool-xd" translatesAutoresizingMaskIntoConstraints="NO" id="tWO-ig-dpX">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Izx-om-W8z">
-                                <rect key="frame" x="8" y="84" width="398" height="70"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Izx-om-W8z">
+                                <rect key="frame" x="8" y="84" width="398" height="117"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a superhero name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZJg-8j-KBB">
                                         <rect key="frame" x="0.0" y="0.0" width="398" height="30"/>
@@ -41,6 +41,9 @@
                                             <action selector="manageSearch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FYd-kt-lnH"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="kpj-FB-2wW">
+                                        <rect key="frame" x="0.0" y="80" width="398" height="37"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="ZJg-8j-KBB" secondAttribute="trailing" id="8Qb-ta-ZK1"/>
@@ -63,6 +66,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Search superhero" id="tll-sR-4kU"/>
                     <connections>
+                        <outlet property="activity" destination="kpj-FB-2wW" id="iZN-eR-VxO"/>
                         <outlet property="searchTextField" destination="ZJg-8j-KBB" id="UWS-fd-o3B"/>
                     </connections>
                 </viewController>
@@ -78,23 +82,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Header" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bXd-PU-ROk">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <fontDescription key="fontDescription" type="italicSystem" pointSize="18"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ResultsTableViewCell" rowHeight="140" id="b79-Qf-cDD" customClass="ResultsTableViewCell" customModule="superheroApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="414" height="140"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="140"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b79-Qf-cDD" id="IXE-hR-pal">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="139.66666666666666"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8Cb-aZ-xdL">
-                                            <rect key="frame" x="0.0" y="10" width="404" height="119.66666666666669"/>
+                                            <rect key="frame" x="0.0" y="10.000000000000007" width="404" height="119.66666666666669"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" placeholderIntrinsicWidth="140" placeholderIntrinsicHeight="140" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="dgx-2K-3jb">
                                                     <rect key="frame" x="0.0" y="0.0" width="100.66666666666667" height="119.66666666666667"/>
@@ -150,9 +147,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="SuperHero Results" id="dYb-gi-xlD"/>
-                    <connections>
-                        <outlet property="headerLabel" destination="bXd-PU-ROk" id="K9V-Zd-x7c"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TyJ-oK-JPF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -222,6 +216,9 @@
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="503" placeholderIntrinsicHeight="503" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="3uQ-6N-fRv">
                                         <rect key="frame" x="0.0" y="0.0" width="394" height="503"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="10" id="tF9-wp-abU"/>
+                                        </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JPq-jH-J1R">
                                         <rect key="frame" x="0.0" y="526" width="394" height="140"/>
@@ -229,19 +226,19 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="f2e-3v-wVU">
                                                 <rect key="frame" x="0.0" y="0.0" width="394" height="65"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Intelligence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="It2-m5-7ff">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Intelligence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="It2-m5-7ff" customClass="HeroAppLabel" customModule="superheroApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="394" height="21.666666666666668"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strength" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y9R-9w-noB">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strength" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y9R-9w-noB" customClass="HeroAppLabel" customModule="superheroApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="21.666666666666629" width="394" height="21.666666666666671"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Speed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w8w-NA-MQu">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Speed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w8w-NA-MQu" customClass="HeroAppLabel" customModule="superheroApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="43.333333333333371" width="394" height="21.666666666666671"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                         <nil key="textColor"/>
@@ -252,19 +249,19 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3QZ-Cz-CJy">
                                                 <rect key="frame" x="0.0" y="75" width="394" height="65"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Durability" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6wX-xM-jLd">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Durability" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6wX-xM-jLd" customClass="HeroAppLabel" customModule="superheroApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="394" height="21.666666666666668"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Power" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DiS-gY-lqP">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Power" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DiS-gY-lqP" customClass="HeroAppLabel" customModule="superheroApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="21.666666666666629" width="394" height="21.666666666666671"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Combat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nIc-st-1Sn">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Combat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nIc-st-1Sn" customClass="HeroAppLabel" customModule="superheroApp" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="43.333333333333371" width="394" height="21.666666666666671"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                         <nil key="textColor"/>
@@ -273,6 +270,9 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="140" id="2Oy-KS-fNa"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                             </stackView>
@@ -292,13 +292,13 @@
                     </view>
                     <connections>
                         <outlet property="backgroundImage" destination="sVI-VJ-vh7" id="Tre-Bz-BNd"/>
-                        <outlet property="combat" destination="nIc-st-1Sn" id="eq9-Yb-UnR"/>
-                        <outlet property="durability" destination="6wX-xM-jLd" id="4fD-su-oUT"/>
+                        <outlet property="combat" destination="nIc-st-1Sn" id="JKw-cc-TQx"/>
+                        <outlet property="durability" destination="6wX-xM-jLd" id="QDc-p3-Exu"/>
                         <outlet property="heroImage" destination="3uQ-6N-fRv" id="yHm-re-G5q"/>
-                        <outlet property="intelligence" destination="It2-m5-7ff" id="gvt-lP-K3E"/>
-                        <outlet property="power" destination="DiS-gY-lqP" id="Hks-SL-3rU"/>
-                        <outlet property="speed" destination="w8w-NA-MQu" id="uKK-vv-VXj"/>
-                        <outlet property="strength" destination="y9R-9w-noB" id="QUi-Zm-6zu"/>
+                        <outlet property="intelligence" destination="It2-m5-7ff" id="ETv-9T-icX"/>
+                        <outlet property="power" destination="DiS-gY-lqP" id="M8x-H9-HDP"/>
+                        <outlet property="speed" destination="w8w-NA-MQu" id="R8y-k5-NBI"/>
+                        <outlet property="strength" destination="y9R-9w-noB" id="1Pl-NF-rAV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a6Z-ML-rNx" userLabel="First Responder" sceneMemberID="firstResponder"/>

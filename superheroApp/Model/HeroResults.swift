@@ -8,16 +8,14 @@
 
 import UIKit
 
-struct HeroResults: Codable {
+struct HeroResults: Decodable {
     
     let response: String
     let resultsFor: String
     let results: [Hero]
     
     enum CodingKeys: String, CodingKey {
-        case response
-        case resultsFor = "results-for"
-        case results
+        case response, resultsFor = "results-for", results
     }
     
 }

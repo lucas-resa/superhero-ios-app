@@ -8,13 +8,13 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, SearchManagerDelegate {
+class SearchViewController: UIViewController, SearchManagerDelegate, MessagePresenter {
     
     // MARK: Properties
-    let searchManager = SearchManager()
-    //let activity: UIActivityIndicatorView = UIActivityIndicatorView()
+    private let searchManager = SearchManager()
     
     @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var activity: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +29,11 @@ class SearchViewController: UIViewController, SearchManagerDelegate {
         self.searchManager.delegate = self
 
         if let searchText = searchTextField.text, !searchText.isEmpty {
+            activity.isHidden = false
+            activity.startAnimating()
             self.searchManager.searchSuperheroResults(searchText: searchTextField.text!)
         } else {
-            print("El texto esta vacio")
+            responseError(message: "Please enter a word to realize the search")
         }
         
     }
@@ -39,30 +41,23 @@ class SearchViewController: UIViewController, SearchManagerDelegate {
     // MARK: SearchManagerDelegate
 
     func loadValidResponse(results: HeroResults) {
-        //activity.removeFromSuperview()
-        //activity.stopAnimating()
-        
+
         if let resultsViewController = storyboard?.instantiateViewController(withIdentifier: "resultsTable") as? ResultsTableViewController {
             // Esto hace que esto lo ejecute el thread main (principal) de manera asincrona --  Investigar sobre el manejo de estos threads
             resultsViewController.heroes = results.results
             DispatchQueue.main.async {
+                self.activity.stopAnimating()
                 self.navigationController?.pushViewController(resultsViewController, animated: true)
-                
-                //Fuerzo el dibujado de la view del controller para que inicialice los componentes internos (subviews)
-                resultsViewController.view.setNeedsDisplay()
-                resultsViewController.headerLabel.text = "Results for: \(results.resultsFor)"
+                resultsViewController.headerText = "Results for: \(results.resultsFor) - \(results.results.count) results"
             }
         }
         
-
     }
 
-    
-    func responseError() {
-        print("Error al realizar la Request")
+    func responseError(message: String) {
+        showErrorMessage(title: "Search Error", message: message)
+        self.activity.stopAnimating()
     }
-    
-    
 
 }
 

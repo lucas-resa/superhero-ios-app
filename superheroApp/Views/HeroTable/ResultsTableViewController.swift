@@ -8,28 +8,32 @@
 
 import UIKit
 
-class ResultsTableViewController: UITableViewController {
+class ResultsTableViewController: UITableViewController, UISearchBarDelegate {
 
     // MARK: Properties
     
-    @IBOutlet weak var headerLabel: UILabel!
     var heroes = [Hero]()
+    var filteredHeroes: [Hero]?
+    var headerText: String?
+    
+    var searchBar: UIView?
+    var oldContentOffset: CGPoint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        headerLabel.text = "\(headerLabel.text ?? "") - \(heroes.count)"
+        
+        self.title = headerText
         
         let backgroundImage = UIImageView(image: UIImage(named: "deadpool-xd"))
         backgroundImage.addBlurEffectToImage()
         
         tableView.backgroundView = backgroundImage
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        // Seteo el header a la tabla entera, aca puedo poner cualquier vista que quiera por codigo
+        // tableView.tableHeaderView = self.buildTableHeaderView()
+        
+        filteredHeroes = heroes
+        
     }
 
     // MARK: - Table view data source
@@ -41,9 +45,19 @@ class ResultsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return heroes.count
+        return filteredHeroes?.count ?? 0
     }
 
+    // Con esto seteo un header para cada seccion de la tabla y me aseguro de que quede fijo en la parte superior mientras esa seccion sea la principal que se este mostrando
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        searchBar = self.buildTableSectionHeaderView()
+        return searchBar
+    }
+    
+    // En esta funcion puedo definir el tamaño del header de cada seccion
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifer = "ResultsTableViewCell"
@@ -52,7 +66,9 @@ class ResultsTableViewController: UITableViewController {
             fatalError("The dequeued cell is not an instance of ResultsTableViewCell")
         }
 
-        let hero = heroes[indexPath.row]
+        guard let hero = filteredHeroes?[indexPath.row] else {
+            fatalError("The hero unwrapped was nil")
+        }
         
         cell.heroGenderLabel.text! = "Gender: \(hero.appearance.gender)"
         cell.heroRaceLabel.text! = "Race: \(hero.appearance.race.elementsEqual("null") ? "None" : hero.appearance.race)"
@@ -64,42 +80,35 @@ class ResultsTableViewController: UITableViewController {
         return cell
     }
     
-
+    // MARK: - UISearchBarDelegate
     
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let searchText = searchText.lowercased()
+        
+        let filtered = heroes.filter({
+            $0.name.lowercased().contains(searchText)
+        })
+        
+        self.filteredHeroes = filtered.isEmpty ? heroes : filtered
+        tableView.reloadData()
+        
     }
- 
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    // MARK: - UIScrollViewDelegate
+    
+    // El Scroll todavia no se movio
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+        changeVisibilityFromSearchBar(hide: true)
+        
     }
-    */
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+    // El usuario saco el dedo de la pantalla
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+
+        changeVisibilityFromSearchBar(hide: false)
 
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
     // MARK: - Navigation
 
@@ -120,9 +129,28 @@ class ResultsTableViewController: UITableViewController {
             fatalError("The selected cell is not being displayed by the table")
         }
         
-        let selectedHero = heroes[indexPath.row]
+        let selectedHero = filteredHeroes?[indexPath.row]
         descriptionViewController.hero = selectedHero
         
     }
 
+    // MARK: - Private Methods
+    private func buildTableSectionHeaderView() -> UIView? {
+        let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
+        
+        searchBar.delegate = self
+        
+        return searchBar
+    }
+    
+    private func changeVisibilityFromSearchBar(hide: Bool) {
+        
+        guard let searchBar = searchBar else { return }
+
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
+            searchBar.alpha = hide ? 0 : 1.0
+        })
+        
+    }
+    
 }
